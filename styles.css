@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.squares-container {
+    display: flex;
+    flex-wrap: wrap;
+    border: solid 1px;
+    aspect-ratio: 1;
+    /* flex: 1; */
+    width: 85vmin;
+    height: 85vmin;
+    box-sizing: border-box;
+}
+
+.square{
+    border: solid 1px;
+    aspect-ratio: 1;
+    flex: auto;
+    box-sizing: border-box;
+}
