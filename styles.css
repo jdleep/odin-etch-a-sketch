@@ -17,9 +17,13 @@ body {
     box-sizing: border-box;
 }
 
-.square{
+.square {
     border: solid 1px;
     aspect-ratio: 1;
     flex: auto;
     box-sizing: border-box;
+}
+
+.black {
+    background-color: black;
 }
