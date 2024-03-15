@@ -1,5 +1,6 @@
 body {
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
     margin: 0 auto;
     align-items: center;
@@ -26,4 +27,8 @@ body {
 
 .black {
     background-color: black;
+}
+
+.create-new-grid {
+    margin-bottom: 3vmin
 }
