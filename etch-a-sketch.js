@@ -11,9 +11,24 @@ function createGrid(container, squaresPerSide) {
     }    
 }
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+  
+
+function createRandomRGB() {
+    let r = getRandomInt(255);
+    let g = getRandomInt(255);
+    let b = getRandomInt(255);
+
+    return `rgb(${r},${g},${b})`;
+}
+
 container.addEventListener('mouseover', (e) => {
-    if (e.target.classList.contains('square')) {
-        e.target.classList.add('black');
+    if (e.target.classList.contains('square') && e.buttons === 1) {
+        // e.target.classList.add('black');
+        console.log(createRandomRGB());
+        e.target.style.backgroundColor = createRandomRGB();
     }
 });
 
