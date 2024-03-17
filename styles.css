@@ -36,5 +36,13 @@ body {
 }
 
 .create-new-grid {
-    margin-bottom: 3vmin
+    margin-bottom: 2vmin
+}
+
+input[name="draw-select"] {
+    margin-left: 10px;
+  }
+
+.draw-select {
+    margin-bottom: 1vmin;
 }

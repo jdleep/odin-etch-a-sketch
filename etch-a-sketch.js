@@ -1,7 +1,7 @@
-const container = document.querySelector('.squares-container');
-
 const INITIAL_SQUARES_PER_SIDE = 16;
 const DARKEN_PERCENTAGE = 10;
+
+const container = document.querySelector('.squares-container');
 
 function createGrid(container, squaresPerSide) {
     for (let i = 0; i < squaresPerSide ** 2; i++) {
@@ -10,6 +10,13 @@ function createGrid(container, squaresPerSide) {
         squareDiv.style.width = 100 / squaresPerSide + '%';
         container.appendChild(squareDiv);
     }    
+}
+
+// Round half up ('round half towards positive infinity')
+// Negative numbers round differently than positive numbers.
+function round(num, decimalPlaces = 0) {
+    num = Math.round(num + "e" + decimalPlaces);
+    return Number(num + "e" + -decimalPlaces);
 }
 
 function getRandomInt(max) {
@@ -47,27 +54,42 @@ function hsl2rgb(arrHSL)
     return [f(0),f(8),f(4)];
 }   
 
+//  Darken color. Converts an array with RGB values to HSL, 
+//  adds a specified percentage to the "L" value, then converts back to RGB
+//  and returns the resulting array.
 function darkenRGB(arrRGB, pctDarken) {
     let arrHSL = rgb2hsl(arrRGB);
-    // darken by 10% (increase "l" value by 10)
     arrHSL[2] = Math.max(0, arrHSL[2] -= pctDarken / 100);
-    return hsl2rgb(arrHSL).map((x) => x * 255);
+    // Convert back 255 scale
+    return hsl2rgb(arrHSL).map((x) => round(x * 255, 2));
 }
 
 container.addEventListener('mouseover', (e) => {
     if (e.target.classList.contains('square') && e.buttons === 1) {
 
-        // Default RGB color is white
-        let arrRGB = [255,255,255];
-        // e.target.classList.add('black');
-        // e.target.style.backgroundColor = 
-        // `rgb(${createRandomRGB().join(',')})`;
-        if (e.target.style.backgroundColor) {
-            console.log(e.target.style.backgroundColor.slice(4,-1));
-            arrRGB = e.target.style.backgroundColor.slice(4,-1).split(',');
+        let drawSelect = 
+            document.querySelector('input[name="draw-select"]:checked').value;
+
+        let arrRGB = [];
+
+        switch (drawSelect) {
+            case 'black':
+                arrRGB = [0,0,0];
+                break;
+            case 'randomRGB':
+                arrRGB = createRandomRGB();
+                break;
+            case 'darken':
+                arrRGB = [255,255,255];
+
+                if (e.target.style.backgroundColor) {
+                    arrRGB = e.target.style.backgroundColor.slice(4,-1).split(',');
+                }
+        
+                arrRGB = darkenRGB(arrRGB, DARKEN_PERCENTAGE);
+                break;
         }
-        arrRGB = darkenRGB(arrRGB, DARKEN_PERCENTAGE);
-        console.log(arrRGB.toString());
+
         e.target.style.backgroundColor = `rgb(${arrRGB.join(',')})`;
     }
 });

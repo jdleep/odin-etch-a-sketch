@@ -10,3 +10,6 @@ https://stackoverflow.com/a/64090995/860099
 
 rgb2hsl
 https://stackoverflow.com/a/54071699/860099
+
+round
+https://stackoverflow.com/a/48764436
